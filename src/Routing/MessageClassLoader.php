@@ -11,41 +11,7 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * AnnotationClassLoader loads routing information from a PHP class and its methods.
- *
- * You need to define an implementation for the getRouteDefaults() method. Most of the
- * time, this method should define some PHP callable to be called for the route
- * (a controller in MVC speak).
- *
- * The @Route annotation can be set on the class (for global parameters),
- * and on each method.
- *
- * The @Route annotation main value is the route path. The annotation also
- * recognizes several parameters: requirements, options, defaults, schemes,
- * methods, host, and name. The name parameter is mandatory.
- * Here is an example of how you should be able to use it:
- *
- *     /**
- *      * @Route("/Blog")
- *      * /
- *     class Blog
- *     {
- *         /**
- *          * @Route("/", name="blog_index")
- *          * /
- *         public function index()
- *         {
- *         }
- *
- *         /**
- *          * @Route("/{id}", name="blog_post", requirements = {"id" = "\d+"})
- *          * /
- *         public function show()
- *         {
- *         }
- *     }
- *
- * @author Fabien Potencier <fabien@symfony.com>
+ * MessageClassLoader is responsible for loading routing information from a Message class used by symfony/messenger.
  */
 class MessageClassLoader implements LoaderInterface
 {
@@ -80,7 +46,7 @@ class MessageClassLoader implements LoaderInterface
      * Loads from annotations from a class.
      *
      * @param string      $class A class name
-     * @param string|null $type The resource type
+     * @param string|null $type  The resource type
      *
      * @return RouteCollection A RouteCollection instance
      *
@@ -98,7 +64,7 @@ class MessageClassLoader implements LoaderInterface
         }
 
         $collection = new RouteCollection();
-        $collection->addResource(new FileResource($class->getFileName()));
+        $collection->addResource(new FileResource((string) $class->getFileName()));
 
         $globals = $this->resetGlobals();
         foreach ($this->reader->getClassAnnotations($class) as $annot) {
@@ -112,6 +78,7 @@ class MessageClassLoader implements LoaderInterface
 
     /**
      * @return \ReflectionMethod
+     *
      * @throws \ReflectionException
      *
      * @todo Read configuration
@@ -130,7 +97,7 @@ class MessageClassLoader implements LoaderInterface
         if (null === $name) {
             $name = $this->getDefaultRouteName($class, $method);
         }
-        $name = $globals['name'] . $name;
+        $name = $globals['name'].$name;
 
         $requirements = $annot->getRequirements();
 
@@ -163,25 +130,25 @@ class MessageClassLoader implements LoaderInterface
         if (\is_array($path)) {
             if (!\is_array($prefix)) {
                 foreach ($path as $locale => $localePath) {
-                    $paths[$locale] = $prefix . $localePath;
+                    $paths[$locale] = $prefix.$localePath;
                 }
             } elseif ($missing = array_diff_key($prefix, $path)) {
-                throw new \LogicException(sprintf('Route to "%s" is missing paths for locale(s) "%s".', $class->name . '::' . $method->name, implode('", "', array_keys($missing))));
+                throw new \LogicException(sprintf('Route to "%s" is missing paths for locale(s) "%s".', $class->name.'::'.$method->name, implode('", "', array_keys($missing))));
             } else {
                 foreach ($path as $locale => $localePath) {
                     if (!isset($prefix[$locale])) {
                         throw new \LogicException(sprintf('Route to "%s" with locale "%s" is missing a corresponding prefix in class "%s".', $method->name, $locale, $class->name));
                     }
 
-                    $paths[$locale] = $prefix[$locale] . $localePath;
+                    $paths[$locale] = $prefix[$locale].$localePath;
                 }
             }
         } elseif (\is_array($prefix)) {
             foreach ($prefix as $locale => $localePrefix) {
-                $paths[$locale] = $localePrefix . $path;
+                $paths[$locale] = $localePrefix.$path;
             }
         } else {
-            $paths[] = $prefix . $path;
+            $paths[] = $prefix.$path;
         }
 
         foreach ($method->getParameters() as $param) {
@@ -203,7 +170,7 @@ class MessageClassLoader implements LoaderInterface
             if (0 !== $locale) {
                 $route->setDefault('_locale', $locale);
                 $route->setDefault('_canonical_route', $name);
-                $collection->add($name . '.' . $locale, $route);
+                $collection->add($name.'.'.$locale, $route);
             } else {
                 $collection->add($name, $route);
             }
@@ -305,16 +272,16 @@ class MessageClassLoader implements LoaderInterface
     private function resetGlobals()
     {
         return [
-            'path'            => null,
+            'path' => null,
             'localized_paths' => [],
-            'requirements'    => [],
-            'options'         => [],
-            'defaults'        => [],
-            'schemes'         => [],
-            'methods'         => [],
-            'host'            => '',
-            'condition'       => '',
-            'name'            => '',
+            'requirements' => [],
+            'options' => [],
+            'defaults' => [],
+            'schemes' => [],
+            'methods' => [],
+            'host' => '',
+            'condition' => '',
+            'name' => '',
         ];
     }
 

@@ -74,7 +74,6 @@ class ApiController
             }
         }
 
-
         return JsonResponse::fromJsonString($this->serializer->serialize($response, 'json'));
     }
 }

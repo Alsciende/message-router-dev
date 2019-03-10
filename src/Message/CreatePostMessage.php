@@ -13,8 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class CreatePostMessage
- * @package App\Message
+ * Class CreatePostMessage.
  *
  * @Route(path="/posts",methods={"POST"})
  */
@@ -47,5 +46,4 @@ class CreatePostMessage
     {
         // TODO: Implement __invoke() method.
     }
-
 }

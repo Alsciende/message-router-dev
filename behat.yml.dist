@@ -1,0 +1,17 @@
+default:
+    translation:
+        locale: en
+
+    suites:
+        default:
+            contexts:
+                - Alsciende\Behat\DataStoreContext
+                -   Alsciende\Behat\ApiContext:
+                        client: '@test.client'
+                - Alsciende\Behat\JsonContext
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                bootstrap: features/bootstrap/bootstrap.php
+                class: App\Kernel

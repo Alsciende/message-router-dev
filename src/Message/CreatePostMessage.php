@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class CreatePostMessage.
  *
- * @Route(path="/posts",methods={"POST"})
+ * @Route(path="/posts",methods={"POST"},name="create_post")
  */
 class CreatePostMessage
 {
@@ -35,10 +35,5 @@ class CreatePostMessage
     public function setTitle(?string $title): void
     {
         $this->title = $title;
-    }
-
-    public function __invoke()
-    {
-        // TODO: Implement __invoke() method.
     }
 }

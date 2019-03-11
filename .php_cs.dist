@@ -1,15 +1,17 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->in('src')
-    ->in('tests')
-    ->in('features/bootstrap')
+    ->in(__DIR__.'/src')
+    ->in(__DIR__.'/tests')
 ;
-
 return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'concat_space' => ['spacing' => 'one'],
+        'increment_style' => ['style' => 'post'],
+        'declare_strict_types' => true,
+        'phpdoc_summary' => false,
     ])
     ->setFinder($finder)
 ;

@@ -83,7 +83,7 @@ class AnnotatedRouteMessageLoader extends AnnotationClassLoader
      */
     protected function getDefaultRouteName(\ReflectionClass $class, \ReflectionMethod $method)
     {
-        return preg_replace([
+        return (string) preg_replace([
             '/_message$/',
         ], [
             '',
@@ -93,6 +93,6 @@ class AnnotatedRouteMessageLoader extends AnnotationClassLoader
     protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, $annot)
     {
         $route->setDefault('_controller', $method->class);
-        $route->setDefault('type', $class->getName());
+        $route->setDefault('_message', $class->getName());
     }
 }

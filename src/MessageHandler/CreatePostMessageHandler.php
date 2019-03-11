@@ -12,12 +12,12 @@ class CreatePostMessageHandler implements MessageHandlerInterface
 {
     public function __invoke(CreatePostMessage $message)
     {
-//        dump($message);
-
         return [
             'success' => true,
-            'title' => $message->getTitle(),
-            'id' => Uuid::uuid4(),
+            'data' => [
+                'id' => Uuid::uuid4(),
+                'title' => $message->getTitle(),
+            ],
         ];
     }
 }

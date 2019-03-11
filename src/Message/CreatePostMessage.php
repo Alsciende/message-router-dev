@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class CreatePostMessage.
  *
- * @Route(path="/posts",methods={"POST"},name="create_post")
+ * @Route("/posts", methods={"POST"}, name="create_post")
  */
 class CreatePostMessage
 {

@@ -35,6 +35,9 @@ vendor/bin:
 	@echo
 	composer install
 
-clean:
+uninstall:
 	rm -rf vendor/ public/bundles/ var/
 
+clean:
+	rm -rf var/cache/*
+	rm -rf var/log/*

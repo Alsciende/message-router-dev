@@ -13,5 +13,5 @@ Workflow:
 
 Highlights:
 - Only `src/Message` and `src/MessageHandler` are application-specific
-- Routing is derived from annotations in `src/MessageHandler`, see `config/routes.yaml`
-- Input validation is derived from annotations in `src/MessageHandler`
+- Routing is derived from annotations in `src/Message`, see `config/routes.yaml`
+- Input validation is derived from annotations in `src/Message`

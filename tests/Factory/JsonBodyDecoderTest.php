@@ -28,8 +28,7 @@ class JsonBodyDecoderTest extends TestCase
         $request = $this->createMock(Request::class);
         $request->method('getContent')->willReturn('');
 
-        $this->expectException(InvalidRequestException::class);
-        $this->underTest->decodeBody($request);
+        $this->assertEquals([], $this->underTest->decodeBody($request));
     }
 
     public function testDecodeBodySyntax()

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * MessageClassLoader is responsible for loading routing information from a Message class used by symfony/messenger.
  */
-class MessageClassLoader extends AnnotationClassLoader
+class AnnotatedRouteMessageLoader extends AnnotationClassLoader
 {
     /**
      * Loads from annotations from a class.

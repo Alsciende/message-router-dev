@@ -27,16 +27,16 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     routing.loader.message:
-        class: App\Routing\MessageClassLoader
+        class: App\Routing\AnnotatedRouteMessageLoader
         tags: [routing.loader]
         arguments: ['@annotation_reader']
 
     routing.loader.message.directory:
-        class: App\Routing\MessageDirectoryLoader
+        class: Symfony\Component\Routing\Loader\AnnotationDirectoryLoader
         tags: [routing.loader]
         arguments: ['@file_locator', '@routing.loader.message']
 
     routing.loader.message.file:
-        class: App\Routing\MessageFileLoader
+        class: Symfony\Component\Routing\Loader\AnnotationFileLoader
         tags: [routing.loader]
         arguments: ['@file_locator', '@routing.loader.message']
